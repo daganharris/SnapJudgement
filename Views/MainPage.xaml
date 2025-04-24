@@ -1,0 +1,139 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SnapJudgement.MainPage">
+    <Grid>
+        <Image Source="camera_bg.png"
+               Aspect="AspectFill"
+               VerticalOptions="Fill"
+               HorizontalOptions="Fill"/>
+
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="15">
+
+                <Grid ColumnSpacing="20" VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" ColumnSpacing="10" RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Text="Name"/>
+                        <Entry Grid.Row="0" Grid.Column="1" x:Name="txtnameEntry" TextChanged="ContestantFormChanged"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Text="Portrait Score"/>
+                        <Entry Grid.Row="1" Grid.Column="1" x:Name="txtportraitEntry" Keyboard="Numeric" TextChanged="ContestantFormChanged"/>
+
+                        <Label Grid.Row="1" Grid.Column="2" Text="Macro Score"/>
+                        <Entry Grid.Row="1" Grid.Column="3" x:Name="txtmacroEntry" Keyboard="Numeric" TextChanged="ContestantFormChanged"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Panoramic Score"/>
+                        <Entry Grid.Row="2" Grid.Column="1" x:Name="txtpanoramicEntry" Keyboard="Numeric" TextChanged="ContestantFormChanged"/>
+
+                        <Label Grid.Row="2" Grid.Column="2" Text="Wildcard Score"/>
+                        <Entry Grid.Row="2" Grid.Column="3" x:Name="txtwildcardEntry" Keyboard="Numeric" TextChanged="ContestantFormChanged"/>
+                    </Grid>
+
+                    <VerticalStackLayout Grid.Column="1" Spacing="15" VerticalOptions="Start">
+                        <Image Source="logo.png" 
+                               HeightRequest="92.5" 
+                               Aspect="AspectFit"
+                               HorizontalOptions="Center"/>
+
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
+                            <Button Text="Enter" IsEnabled="False" x:Name="btnEnter" Clicked="btnEnter_Clicked" />
+                            <Button Text="Save Scores" IsEnabled="False" x:Name="btnSave" Clicked="btnSave_Clicked"/>
+                            <Button Text="Load Results" x:Name="btnLoad" Clicked="btnLoad_Clicked"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <VerticalStackLayout>
+                    <Grid ColumnSpacing="5" Padding="5" BackgroundColor="LightGray">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Name" Grid.Column="0"
+                   HorizontalOptions="Fill" HorizontalTextAlignment="Center" />
+                        <Label Text="Portrait" Grid.Column="1"
+                   HorizontalOptions="Fill" HorizontalTextAlignment="Center" />
+                        <Label Text="Panoramic" Grid.Column="2"
+                   HorizontalOptions="Fill" HorizontalTextAlignment="Center" />
+                        <Label Text="Macro" Grid.Column="3"
+                   HorizontalOptions="Fill" HorizontalTextAlignment="Center" />
+                        <Label Text="Wildcard" Grid.Column="4"
+                   HorizontalOptions="Fill" HorizontalTextAlignment="Center" />
+                        <Label Text="Overall" Grid.Column="5"
+                   HorizontalOptions="Fill" HorizontalTextAlignment="Center" />
+                        <Label Text="Ranking" Grid.Column="6"
+                   HorizontalOptions="Fill" HorizontalTextAlignment="Center" />
+                    </Grid>
+
+                    <CollectionView x:Name="scoresCollection"
+                        HeightRequest="200"
+                        ItemsSource="{Binding Contestants}" BackgroundColor="White">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnSpacing="5" Padding="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Name}" Grid.Column="0"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding PortraitScore}" Grid.Column="1"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding PanoramicScore}" Grid.Column="2"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding MacroScore}" Grid.Column="3"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding WildcardScore}" Grid.Column="4"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding OverallScore}" Grid.Column="5"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding Ranking}" Grid.Column="6"
+                               HorizontalOptions="Fill"
+                               HorizontalTextAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="10">
+                    <Button x:Name="btnClearAll" Text="Clear All" Clicked="btnClearAll_Clicked"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
